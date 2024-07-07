@@ -28,7 +28,16 @@ const Login = () => {
                         onClick={submitLoginHandler}
                         disabled={isLoading}
                     >
-                        {isLoading ? 'loading...' : 'Login'}
+                        {
+                            isLoading ?
+                                <div class="text-center">
+                                    <div class="spinner-border" role="status">
+                                        <span class="visually-hidden">Loading...</span>
+                                    </div>
+                                </div>
+                                :
+                                'Login'
+                        }
 
                     </button>
                     <p className="mt-5 mb-3 text-body-secondary">© Kamol Juraev productions</p>
