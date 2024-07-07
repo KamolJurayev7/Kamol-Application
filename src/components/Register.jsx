@@ -1,16 +1,28 @@
 import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux'
-import { registerUserStart } from '../slice/auth';
+import AuthService from '../service/auth';
+import { registerUserFailure, registerUserStart, registerUserSuccess } from '../slice/auth';
 import { Input } from '../ui'
+
 const Register = () => {
     const [username, setUsername] = useState('');
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const dispatch = useDispatch()
     const { isLoading } = useSelector(state => state.auth)
-    const handleSubmit = (e) => {
+
+    const handleSubmit = async (e) => {
         e.preventDefault()
         dispatch(registerUserStart())
+        const user = { username, email, password}
+        try {
+            dispatch(registerUserSuccess())
+            const response = await AuthService.userRegister(user)
+            console.log(response)
+            console.log(user);
+        } catch (error) {
+            dispatch(registerUserFailure())
+        }
     }
     return (
         <div className='text-center container mt-5'>
@@ -25,7 +37,7 @@ const Register = () => {
                     <button disabled={isLoading} onClick={handleSubmit} className="btn btn-primary w-100 py-2" type="submit">
                         {
                             isLoading
-                                ? 
+                                ?
                                 <div class="text-center">
                                     <div class="spinner-border" role="status">
                                         <span class="visually-hidden">Loading...</span>
