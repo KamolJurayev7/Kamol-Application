@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 const Navbar = () => {
     return (
         <div className="d-flex flex-column flex-md-row align-items-center pb-3 mb-4 border-bottom container pt-3">
-            <Link href="/" class="d-flex align-items-center text-dark text-decoration-none">
+            <Link to={'/'} class="d-flex align-items-center text-dark text-decoration-none">
                 <span className="fs-1">KAMOL</span>
             </Link>
             <nav className="d-inline-flex mt-2 mt-md-0 ms-md-auto">
