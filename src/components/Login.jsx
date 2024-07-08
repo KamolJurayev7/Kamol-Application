@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { loginUserStart } from '../slice/auth';
+import AuthService from '../service/auth';
+import { signUserFailure, signUserStart, signUserSuccess } from '../slice/auth';
 import { Input } from '../ui';
 
 const Login = () => {
@@ -9,9 +10,16 @@ const Login = () => {
     const dispatch = useDispatch()
     const { isLoading } = useSelector(state => state.auth)
 
-    const submitLoginHandler = (e) => {
+    const submitLoginHandler = async (e) => {
         e.preventDefault()
-        dispatch(loginUserStart())
+        const user = {email, password}
+        dispatch(signUserStart())
+        try {
+            const res = await AuthService.userLogin(user)
+            dispatch(signUserSuccess(res.user))
+        } catch (error) {
+            dispatch(signUserFailure(error.response.data))
+        }
     }
     return (
         <div className='text-center container mt-5'>
