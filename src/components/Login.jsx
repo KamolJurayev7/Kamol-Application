@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import AuthService from '../service/auth';
 import { signUserFailure, signUserStart, signUserSuccess } from '../slice/auth';
 import { Input } from '../ui';
+import {ValidationError} from './allComponents';
 
 const Login = () => {
     const [email, setEmail] = useState('');
@@ -18,7 +19,7 @@ const Login = () => {
             const res = await AuthService.userLogin(user)
             dispatch(signUserSuccess(res.user))
         } catch (error) {
-            dispatch(signUserFailure(error.response.data))
+            dispatch(signUserFailure(error.response.data.errors))
         }
     }
     return (
@@ -26,7 +27,7 @@ const Login = () => {
             <main className="form-sign-in w-25 m-auto">
                 <form>
                     <h1 className="h3 mb-3 fw-normal">Please Login</h1>
-
+                    <ValidationError/>
                     <Input label={"Email address"} state={email} setState={setEmail} />
                     <Input label={"Password"} type={'password'} state={password} setState={setPassword} />
 
@@ -38,9 +39,9 @@ const Login = () => {
                     >
                         {
                             isLoading ?
-                                <div class="text-center">
-                                    <div class="spinner-border" role="status">
-                                        <span class="visually-hidden">Loading...</span>
+                                <div className="text-center">
+                                    <div className="spinner-border" role="status">
+                                        <span className="visually-hidden">Loading...</span>
                                     </div>
                                 </div>
                                 :
