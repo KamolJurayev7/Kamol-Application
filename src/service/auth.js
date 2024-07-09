@@ -6,12 +6,13 @@ const AuthService = {
         return result.data
     },
     async userLogin(user) {
-        const result = await axios.post('/users/login', {user})
+        const result = await axios.post('/users/login', { user })
         return result.data
     },
-    // async getUser(){
-    //     return await axios.get('/users')
-    // },
+    async getUser() {
+        const { data } = await axios.get('/user')
+        return data
+    },
 }
 
 export default AuthService
