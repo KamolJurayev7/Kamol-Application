@@ -1,4 +1,3 @@
-import { configure } from "@testing-library/react";
 import axios from "axios";
 import { getItem } from "../helpers/persistance-storage";
 

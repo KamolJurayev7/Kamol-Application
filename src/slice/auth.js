@@ -25,7 +25,7 @@ export const authSlice = createSlice({
             state.isLoading = false
             state.error = action.payload
         },
-        logoutUser: state => {
+        logoutUser: (state) => {
             state.user = null,
             state.loggedIn = false
         }
