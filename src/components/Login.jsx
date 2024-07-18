@@ -55,7 +55,6 @@ const Login = () => {
                                 :
                                 "Login"
                         }
-
                     </button>
                     <p className="mt-5 mb-3 text-body-secondary">© Kamol Juraev productions</p>
                 </form>
