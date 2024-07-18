@@ -1,4 +1,4 @@
-import {useEffect} from 'react';
+import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { Loader } from '../ui';
@@ -7,7 +7,8 @@ import { getArticlesStart, getArticlesSuccess } from '../slice/article';
 
 const Main = () => {
     const dispatch = useDispatch()
-    const { articles, isLoading } = useSelector(state => state.article)
+    const { isLoading, articles } = useSelector(state => state.article)
+    const { loggedIn, user } = useSelector(state => state.auth)
     const navigate = useNavigate()
 
     const getArticles = async () => {
@@ -53,8 +54,12 @@ const Main = () => {
                                     <div className="card-footer d-flex justify-content-between align-items-center">
                                         <div className="btn-group">
                                             <button onClick={() => { navigate(`/article/${item.slug}`) }} type="button" className="btn btn-sm btn-outline-success">View</button>
-                                            <button type="button" className="btn btn-sm btn-outline-warning">Edit</button>
-                                            <button type="button" className="btn btn-sm btn-outline-danger">Delete</button>
+                                            {loggedIn && user.username === item.author.username && (
+                                                <>
+                                                    <button type="button" className="btn btn-sm btn-outline-warning">Edit</button>
+                                                    <button type="button" className="btn btn-sm btn-outline-danger">Delete</button>
+                                                </>
+                                            )}
                                         </div>
                                         <small className="text-muted fw-bold text-capitalize">{item.author.username}</small>
                                     </div>
@@ -63,7 +68,6 @@ const Main = () => {
                         ))}
                     </div>
                 </div>
-
             </div>
         </>
     );
