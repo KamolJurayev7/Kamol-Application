@@ -20,11 +20,17 @@ const Main = () => {
             console.log(error)
         }
     }
-    useEffect(() => {
 
-        getArticles()
+    useEffect(() => { getArticles() }, []);
 
-    }, []);
+    const deleteArticles = async (slug) => {
+        try {
+            await ArticleService.deleteArticle(slug)
+            getArticles()
+        } catch (error) {
+            console.log(error);
+        }
+    }
 
     return (
         <>
@@ -57,7 +63,7 @@ const Main = () => {
                                             {loggedIn && user.username === item.author.username && (
                                                 <>
                                                     <button type="button" className="btn btn-sm btn-outline-warning">Edit</button>
-                                                    <button type="button" className="btn btn-sm btn-outline-danger">Delete</button>
+                                                    <button onClick={() => { deleteArticles(item.slug) }} type="button" className="btn btn-sm btn-outline-danger">Delete</button>
                                                 </>
                                             )}
                                         </div>
