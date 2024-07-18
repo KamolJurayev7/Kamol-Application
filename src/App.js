@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import { Routes, Route } from 'react-router-dom'
-import { Main, Login, Register, Navbar, ArticleDetail, CreateArticle } from './components/allComponents'
+import { Main, Login, Register, Navbar, ArticleDetail, CreateArticle, EditArticles } from './components/allComponents'
 import AuthService from './service/auth';
 import { useDispatch } from 'react-redux'
 import { signUserFailure, signUserSuccess } from './slice/auth';
@@ -38,6 +38,7 @@ const App = () => {
             <Route path="/register" element={<Register />} />
             <Route path="/article/:slug" element={<ArticleDetail />} />
             <Route path="/create-article" element={<CreateArticle />} />
+            <Route path="/edit-article/:slug" element={<EditArticles />} />
           </Route>
         </Routes>
       </div>
